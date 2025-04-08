@@ -4,14 +4,16 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "react-native-reanimated";
-
-import { useColorScheme } from "@/hooks/useColorScheme";
 
 SplashScreen.preventAutoHideAsync();
 
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { retry: 2 } },
+});
+
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
@@ -27,12 +29,18 @@ export default function RootLayout() {
   }
 
   return (
-    <PaperProvider>
-      <Stack>
-        <Stack.Screen name="rates" options={{ headerShown: false }} />
-        <Stack.Screen name="details" options={{ headerShown: false }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </PaperProvider>
+    <QueryClientProvider client={queryClient}>
+      <PaperProvider>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="(rates)" />
+          <Stack.Screen name="(rates)/details" />
+        </Stack>
+        <StatusBar style="auto" />
+      </PaperProvider>
+    </QueryClientProvider>
   );
 }

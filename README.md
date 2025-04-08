@@ -1,4 +1,8 @@
-# Welcome to your Expo app 👋
+# Welcome to MY Expo app 👋
+
+
+
+Actually, I prefer to work with react-native cli thatts why i might missed some best practices, but i think it's enought for presenting that I can work with mobile as well
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
